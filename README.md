@@ -5,7 +5,7 @@
 [2]: https://coveralls.io/r/litejs/crypto-lite
 [4]: http://nodejs.org/api/crypto.html
 
-    @version  0.0.2
+    @version  0.0.3
     @date     2014-04-21
 
 Standard cryptographic algorithms &ndash; [![Build][]][1] [![Coverage][]][2]
