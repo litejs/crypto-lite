@@ -2,7 +2,7 @@
 
 
 /*
-* @version  0.0.3
+* @version  0.0.4
 * @author   Lauri Rooden <lauri@rooden.ee>
 * @license  MIT License
 */
