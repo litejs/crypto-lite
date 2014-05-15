@@ -1,6 +1,6 @@
 {
   "name": "crypto-lite",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "stability": 1,
   "license": "MIT",
   "author": "Lauri Rooden <lauri@rooden.ee>",
@@ -19,16 +19,13 @@
     "travis-test": "istanbul cover ./tests/run.js && (coveralls < coverage/lcov.info || exit 0)",
     "test": "node tests/run.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/litejs/crypto-lite.git"
-  },
+  "repository": "git://github.com/litejs/crypto-lite.git",
   "bugs": {
     "url": "https://github.com/litejs/crypto-lite/issues"
   },
   "devDependencies": {
     "buildman": "*",
-    "testman": "^0.1.6"
+    "testman": "*"
   },
   "buildman": {
     "build/crypto-lite-min.js": "index.js",
@@ -42,5 +39,30 @@
       "input": "index.js",
       "toggle": "sha1|HMAC|PBKDF2"
     }
+  },
+  "testling": {
+    "files": "tests/run.js",
+    "browsers": [
+      "ie/6..10",
+      "ff/3",
+      "ff/4",
+      "ff/5",
+      "ff/20",
+      "ff/25",
+      "chrome/4",
+      "chrome/10",
+      "chrome/20",
+      "chrome/30",
+      "chrome/31",
+      "opera/10",
+      "opera/11",
+      "opera/11.6",
+      "opera/12",
+      "opera/16",
+      "safari/4..6",
+      "android-browser/4.2",
+      "iphone/6",
+      "ipad/6"
+    ]
   }
 }

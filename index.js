@@ -79,6 +79,7 @@
 	//** PBKDF2
 	// pbkdf2(sha256, this, salt, count, length || 32)
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
+	// $PBKDF2$HMACSHA1:1000:akrvug==$Zi+c82tnjpcrRmUAHRd8h4ZRR5M=
 
 	crypto.pbkdf2 = crypto.pbkdf2Sync = pbkdf2
 
