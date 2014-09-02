@@ -1,22 +1,40 @@
 
 
 
-/*
-* @version  0.0.4
-* @author   Lauri Rooden <lauri@rooden.ee>
-* @license  MIT License
-*/
+/**
+ * @version    0.0.5
+ * @date       2014-09-02
+ * @stability  1 - Experimental
+ * @author     Lauri Rooden <lauri@rooden.ee>
+ * @license    MIT License
+ */
 
 
 
-!function(root, nuls) {
-	var crypto = root.crypto || (root.crypto = {})
 
+!function(exports) {
+	var crypto = exports.crypto || (exports.crypto = {})
+
+	/**
+	 * Convert array of integers to a hex string.
+	 *
+	 * @param {number[]} array of integers
+	 *
+	 * @return {string} HEX string
+	 */
 
 	function i2s(a) { // integer array to hex string
 		for (var i = a.length; i--;) a[i] = ("0000000"+(a[i]>>>0).toString(16)).slice(-8)
 		return a.join("")
 	}
+
+	/**
+	 * Convert string to an array of integers.
+	 *
+	 * @param {string}
+	 *
+	 * @return {number[]} array of integers
+	 */
 
 	function s2i(s) { // string to integer array
 		s = unescape(encodeURIComponent(s))
@@ -25,8 +43,10 @@
 		, bin = []
 
 		while (i < len) {
-			bin[i>>2] = s.charCodeAt(i)<<24|s.charCodeAt(i+1)<<16|s.charCodeAt(i+2)<<8|s.charCodeAt(i+3)
-			i+=4
+			bin[i>>2] = s.charCodeAt(i++)<<24 |
+				s.charCodeAt(i++)<<16 |
+				s.charCodeAt(i++)<<8 |
+				s.charCodeAt(i++)
 		}
 		bin.len = len
 		return bin
@@ -40,7 +60,7 @@
 		, ipad = []
 		, opad = []
 
-		key = (key.length > 64) ? hasher(key, true) : s2i(key)
+		key = (key.length > 64) ? hasher(key, 1) : s2i(key)
 
 		while (i < 16) {
 			ipad[i] = key[i]^0x36363636
@@ -56,8 +76,7 @@
 	}
 
 	crypto.hmac = function(digest, key, message) {
-		var hasher = crypto[digest] || crypto.sha1
-		return hmac(hasher, key, message)
+		return hmac(crypto[digest], key, message)
 	}
 
 	//*/
@@ -116,7 +135,7 @@
 	//*/
 
 
-	function sha_init(bin, len) {
+	function shaInit(bin, len) {
 		if (typeof bin == "string") {
 			bin = s2i(bin)
 			len = bin.len
@@ -142,7 +161,7 @@
 		, C = 0x98badcfe
 		, D = 0x10325476
 		, E = 0xc3d2e1f0
-		, bin = sha_init(data, _len)
+		, bin = shaInit(data, _len)
 		, len = bin.length
 
 		while (i < len) {
@@ -186,7 +205,7 @@
 	//** sha256
 	var initial_map = [], constants_map = []
 
-	function build_maps() {
+	function buildMaps() {
 		// getFractionalBits
 		function a(e) {
 			return (e - (e>>>0)) * 0x100000000 | 0
@@ -201,12 +220,11 @@
 	}
 
 	function sha256(data, raw, _len) {
-		initial_map[0] || build_maps()
+		initial_map[0] || buildMaps()
 
 		var a, b, c, d, e, f, g, h, t1, t2, j
 		, i = 0
 		, w = []
-		, bin = sha_init(data, _len)
 		, A = initial_map[0]
 		, B = initial_map[1]
 		, C = initial_map[2]
@@ -215,6 +233,7 @@
 		, F = initial_map[5]
 		, G = initial_map[6]
 		, H = initial_map[7]
+		, bin = shaInit(data, _len)
 		, len = bin.length
 		, K = constants_map
 
@@ -259,7 +278,7 @@
 			F += f
 			G += g
 			H += h
-			i+=16
+			i += 16
 		}
 		t = [A, B, C, D, E, F, G, H]
 		return raw ? t : i2s(t)
@@ -276,6 +295,6 @@
 	}
 	//*/
 
-}(this, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+}(this)
 
 

@@ -5,8 +5,8 @@
 [2]: https://coveralls.io/r/litejs/crypto-lite
 [4]: http://nodejs.org/api/crypto.html
 
-    @version  0.0.4
-    @date     2014-04-21
+    @version  0.0.5
+    @date     2014-09-02
 
 Standard cryptographic algorithms &ndash; [![Build][]][1] [![Coverage][]][2]
 =================================
@@ -41,7 +41,9 @@ var crypto = require("crypto-lite").crypto
 External links
 --------------
 
-- [npmjs.org/package/crypto-lite](https://npmjs.org/package/crypto-lite)
+-   [Source-code on Github](https://github.com/litejs/crypto-lite)
+-   [Package on npm](https://npmjs.org/package/crypto-lite)
+
 
 ### Licence
 

@@ -28,13 +28,13 @@
     "testman": "*"
   },
   "buildman": {
-    "build/crypto-lite-min.js": "index.js",
-    "build/sha1.js": {
+    "dist/crypto-lite-min.js": "index.js",
+    "dist/sha1.js": {
       "devel": true,
       "input": "index.js",
       "toggle": "sha256|HMAC|PBKDF2"
     },
-    "build/sha256.js": {
+    "dist/sha256.js": {
       "devel": true,
       "input": "index.js",
       "toggle": "sha1|HMAC|PBKDF2"

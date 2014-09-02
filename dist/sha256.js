@@ -1,0 +1,6 @@
+/*
+    MIT License
+*/
+!function(r){function E(){function b(a){return 4294967296*(a-(a>>>0))|0}var d=0,a=2,c;a:for(;64>d;a++){for(c=2;c*c<=a;c++)if(0===a%c)continue a;8>d&&(g[d]=b(Math.pow(a,.5)));D[d++]=b(Math.pow(a,1/3))}}var g=[],D=[];(r.crypto||(r.crypto={})).sha256=function(b,d,a){g[0]||E();var c,k,f,p,q,s,h,l,e,m=0,n=[],u=g[0],v=g[1],w=g[2],x=g[3],y=g[4],z=g[5],A=g[6],B=g[7],C;if("string"==typeof b){a=unescape(encodeURIComponent(b));b=a.length;c=0;for(k=[];c<b;)k[c>>2]=a.charCodeAt(c++)<<24|a.charCodeAt(c++)<<16|
+a.charCodeAt(c++)<<8|a.charCodeAt(c++);k.len=b;b=k;a=b.len}else a=a||b.length<<2;b[a>>2]|=128<<24-(31&(a<<=3));b[(a+64>>9<<4)+15]=a;C=b;for(var r=C.length,F=D;m<r;){a=u;b=v;c=w;k=x;f=y;p=z;q=A;s=B;for(e=0;64>e;)16>e?n[e]=C[m+e]:(h=n[e-2],l=n[e-15],n[e]=(h>>>17^h<<15^h>>>19^h<<13^h>>>10)+(n[e-7]|0)+(l>>>7^l<<25^l>>>18^l<<14^l>>>3)+(n[e-16]|0)),h=(n[e]|0)+s+(f>>>6^f<<26^f>>>11^f<<21^f>>>25^f<<7)+(f&p^~f&q)+F[e],l=(a>>>2^a<<30^a>>>13^a<<19^a>>>22^a<<10)+(a&b^a&c^b&c),s=q,q=p,p=f,f=k+h>>>0,k=c,c=b,b=
+a,a=h+l>>>0,e++;u+=a;v+=b;w+=c;x+=k;y+=f;z+=p;A+=q;B+=s;m+=16}t=[u,v,w,x,y,z,A,B];if(d)d=t;else{d=t;for(m=d.length;m--;)d[m]=("0000000"+(d[m]>>>0).toString(16)).slice(-8);d=d.join("")}return d}}(this);
