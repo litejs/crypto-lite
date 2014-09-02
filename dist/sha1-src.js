@@ -2,7 +2,7 @@
 
 
 /**
- * @version    0.0.5
+ * @version    0.0.6
  * @date       2014-09-02
  * @stability  1 - Experimental
  * @author     Lauri Rooden <lauri@rooden.ee>
@@ -76,23 +76,22 @@
 	}
 
 	crypto.hmac = function(digest, key, message) {
-		var hasher = crypto[digest] || crypto.sha1
-		return hmac(hasher, key, message)
+		return hmac(crypto[digest], key, message)
 	}
 
 	//*/
 
 	/**
-	 * A minimum iteration count of 1,000 is recommended. 
-	 * For especially critical keys, 
-	 * or for very powerful systems 
-	 * or systems where user-perceived performance is not critical, 
+	 * A minimum iteration count of 1,000 is recommended.
+	 * For especially critical keys,
+	 * or for very powerful systems
+	 * or systems where user-perceived performance is not critical,
 	 * an iteration count of 10,000,000 may be appropriate.
 	 *
-	 * PBKDF2 is always used with HMAC, 
-	 * which is itself a construction which is built over 
-	 * an underlying hash function. 
-	 * So when we say "PBKDF2 with SHA-1", 
+	 * PBKDF2 is always used with HMAC,
+	 * which is itself a construction which is built over
+	 * an underlying hash function.
+	 * So when we say "PBKDF2 with SHA-1",
 	 * we actually mean "PBKDF2 with HMAC with SHA-1".
 	 */
 
@@ -196,13 +195,6 @@
 	//*/
 
 
-	/** HMAC
-	//** sha1
-	crypto.hmac_sha1 = function(key) {
-		return hmac(sha1, key, ""+this)
-	}
-	//*/
-
 	/*** sha256
 	var initial_map = [], constants_map = []
 
@@ -286,14 +278,6 @@
 	}
 
 	crypto.sha256 = sha256
-	//*/
-
-
-	/** HMAC
-	/*** sha256
-	crypto.hmac_sha256 = function(key) {
-		return hmac(sha256, key, ""+this)
-	}
 	//*/
 
 }(this)
