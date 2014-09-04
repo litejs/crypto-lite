@@ -195,7 +195,7 @@
 	//*/
 
 
-	//** sha256
+	/*** sha256
 	var initial_map = [], constants_map = []
 
 	function buildMaps() {

@@ -147,7 +147,7 @@
 		return bin
 	}
 
-	//** sha1
+	/*** sha1
 	function l(x, n) { // rotate left
 		return (x<<n) | (x>>>(32-n))
 	}

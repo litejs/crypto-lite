@@ -6,8 +6,8 @@
 [4]: http://nodejs.org/api/crypto.html
 
 
-    @version    0.0.6
-    @date       2014-09-02
+    @version    0.0.7
+    @date       2014-09-04
     @stability  1 - Experimental
 
 

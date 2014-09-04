@@ -1,6 +1,6 @@
 {
   "name": "crypto-lite",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "stability": 1,
   "license": "MIT",
   "author": "Lauri Rooden <lauri@rooden.ee>",
@@ -34,10 +34,20 @@
       "input": "index.js",
       "toggle": "sha256|HMAC|PBKDF2"
     },
+    "dist/sha1-hmac-pbkdf2.js": {
+      "devel": true,
+      "input": "index.js",
+      "toggle": "sha256"
+    },
     "dist/sha256.js": {
       "devel": true,
       "input": "index.js",
       "toggle": "sha1|HMAC|PBKDF2"
+    },
+    "dist/sha256-hmac-pbkdf2.js": {
+      "devel": true,
+      "input": "index.js",
+      "toggle": "sha1"
     }
   },
   "testling": {
