@@ -6,9 +6,9 @@
 [4]: http://nodejs.org/api/crypto.html
 
 
-    @version    0.0.7
-    @date       2014-09-04
-    @stability  1 - Experimental
+    @version    0.1.0
+    @date       2015-03-22
+    @stability  2 - Unstable
 
 
 Standard cryptographic algorithms &ndash; [![Build][]][1] [![Coverage][]][2]

@@ -1,10 +1,11 @@
+/*! litejs.com/MIT-LICENSE.txt */
 
 
 
-/**
- * @version    0.0.7
- * @date       2014-09-04
- * @stability  1 - Experimental
+/*
+ * @version    0.1.0
+ * @date       2015-03-22
+ * @stability  2 - Unstable
  * @author     Lauri Rooden <lauri@rooden.ee>
  * @license    MIT License
  */
@@ -19,7 +20,6 @@
 	 * Convert array of integers to a hex string.
 	 *
 	 * @param {number[]} array of integers
-	 *
 	 * @return {string} HEX string
 	 */
 
@@ -32,7 +32,6 @@
 	 * Convert string to an array of integers.
 	 *
 	 * @param {string}
-	 *
 	 * @return {number[]} array of integers
 	 */
 
@@ -164,28 +163,16 @@
 		, bin = shaInit(data, _len)
 		, len = bin.length
 
-		while (i < len) {
-			w = bin.slice(i, i+=(j=16))
-			while (j < 80) w[j++] = l(w[j-4]^w[j-9]^w[j-15]^w[j-17], 1)
-			a = A
-			b = B
-			c = C
-			d = D
-			e = E
-			j = 0
-			while (j<80) {
+		for (; i < len; i+=16, A+=a, B+=b, C+=c, D+=d, E+=e) {
+			for (j=0, a=A, b=B, c=C, d=D, e=E; j < 80;) {
+				w[j] = j < 16 ? bin[i+j] : l(w[j-3]^w[j-8]^w[j-14]^w[j-16], 1)
 				t = (j<20 ? ((b&c)|(~b&d))+0x5A827999 : j<40 ? (b^c^d)+0x6ED9EBA1 : j<60 ? ((b&c)|(b&d)|(c&d))+0x8F1BBCDC : (b^c^d)+0xCA62C1D6)+l(a,5)+e+(w[j++]|0)
 				e = d
 				d = c
 				c = l(b,30)
 				b = a
-				a = t>>>0
+				a = t|0
 			}
-			A += a
-			B += b
-			C += c
-			D += d
-			E += e
 		}
 		t = [A, B, C, D, E]
 		return raw ? t : i2s(t)
@@ -196,7 +183,8 @@
 
 
 	/*** sha256
-	var initial_map = [], constants_map = []
+	var initial_map = []
+	, constants_map = []
 
 	function buildMaps() {
 		// getFractionalBits
@@ -231,7 +219,7 @@
 		, K = constants_map
 
 
-		while (i < len) {
+		for (; i < len; ) {
 			a = A
 			b = B
 			c = C
@@ -241,8 +229,7 @@
 			g = G
 			h = H
 
-			j = 0
-			while (j < 64) {
+			for (j = 0; j < 64; ) {
 				if (j < 16) w[j] = bin[i+j]
 				else {
 					t1 = w[j-2]
@@ -250,18 +237,17 @@
 					w[j] = (t1>>>17^t1<<15^t1>>>19^t1<<13^t1>>>10) + (w[j-7]|0) + (t2>>>7^t2<<25^t2>>>18^t2<<14^t2>>>3) + (w[j-16]|0)
 				}
 
-				t1 = (w[j]|0) + h + (e>>>6^e<<26^e>>>11^e<<21^e>>>25^e<<7) + ((e&f)^((~e)&g)) + K[j]
+				t1 = (w[j]|0) + h + (e>>>6^e<<26^e>>>11^e<<21^e>>>25^e<<7) + ((e&f)^((~e)&g)) + K[j++]
 				t2 = (a>>>2^a<<30^a>>>13^a<<19^a>>>22^a<<10) + ((a&b)^(a&c)^(b&c))
 
 				h = g
 				g = f
 				f = e
-				e = (d + t1)>>>0
+				e = (d + t1)|0
 				d = c
 				c = b
 				b = a
-				a = (t1 + t2)>>>0
-				j++
+				a = (t1 + t2)|0
 			}
 			A += a
 			B += b
