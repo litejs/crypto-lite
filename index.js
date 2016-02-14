@@ -102,12 +102,8 @@
 
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
 
-	function pbkdf2(secret, salt, count, length, digest, callback) {
-		if (typeof digest == "function") {
-			callback = digest
-			digest = "sha1"
-		}
-		var hasher = crypto[digest] || crypto.sha1
+	function pbkdf2(secret, salt, count, length, digest) {
+		var hasher = crypto[digest || "sha1"]
 		count = count || 1000
 
 		var u, ui, i, j, k
@@ -125,9 +121,7 @@
 			//out = out.concat(u)
 			out.push.apply(out, u)
 		}
-		out = i2s(out).slice(0, length*2 || 40)
-		if (callback) callback(null, out)
-		else return out
+		return i2s(out).slice(0, length*2 || 40)
 	}
 
 	//*/
