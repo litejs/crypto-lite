@@ -25,8 +25,19 @@ describe("crypto-lite").
 		equal(crypto.hmac("sha256", "w", "q") , "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22").
 		equal(crypto.hmac("sha256", "w23e", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc95") , "1769221eb6c4f6e52bed133c64d1ba118ef72bfaf91b39f065e0aa43a4788031").
 		equal(crypto.hmac("sha256", "key", "GEThttps://weirdurl.ggnett.no/siteadmin/sites/1/placements") , "6d15c0ed95f53580e777ce36b4d96419632723ab42a17c758628a4aa000ffa1d").
+		equal(crypto.hmac("sha256", "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc9"
+		) , "0bff2ce11dc8ea7b14264dd229413357079b6427262e2e6a8e924ca8c8012dbc").
+		equal(crypto.hmac("sha256", "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22a", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc9"
+		) , "ba3f30aa0d0fecbe54dd3686cb97c0e39863817393d951162fc4297c59658ecc").
+		equal(crypto.hmac("sha256", "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc9b"
+		) , "b9ff96497f1631eee2890ad1d38315bab77cd6e8fcac2d0b9ed84b47c49739ff").
+		equal(crypto.hmac("sha256", "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22a", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc9b"
+		) , "4b8846081d35037e96b7bd836c03b3eb7a304b32b6f47a3af913429078d4fe63").
+		equal(crypto.hmac("sha256", "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22abcd", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc9bcde"
+		) , "dc07e327e8f0f68947695d8117edb41f315cc70398a9ef251290af12d16afdfe").
 
 	it ("should hash pbkdf2 with sha1").
+		equal(crypto.pbkdf2("password", "salt") , "6e88be8bad7eae9d9e10aa061224034fed48d03f").
 		equal(crypto.pbkdf2("password", "salt", 1, 20) , "0c60c80f961f0e71f3a9b524af6012062fe037a6").
 		equal(crypto.pbkdf2("password", "salt", 2, 20) , "ea6c014dc72d6f8ccd1ed92ace1d41f0d8de8957").
 		equal(crypto.pbkdf2("password", "salt", 1, 20, "sha1") , "0c60c80f961f0e71f3a9b524af6012062fe037a6").
