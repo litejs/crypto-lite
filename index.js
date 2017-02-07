@@ -52,7 +52,7 @@
 
 
 	//** HMAC
-	function hmac(hasher, key, txt, raw) {
+	function hmac(hasher, key, txt) {
 		var len
 		, i = 0
 		, ipad = []
@@ -69,12 +69,11 @@
 			txt = s2i(txt)
 			len = txt.len
 		} else len = txt.length * 4
-		i = hasher(opad.concat(hasher(ipad.concat(txt), 1, 64 + len)), 1)
-		return raw ? i : i2s(i)
+		return hasher(opad.concat(hasher(ipad.concat(txt), 1, 64 + len)), 1)
 	}
 
 	crypto.hmac = function(digest, key, message) {
-		return hmac(crypto[digest], key, message)
+		return i2s(hmac(crypto[digest], key, message))
 	}
 
 	//*/
@@ -111,10 +110,10 @@
 		, wlen = length>>2 || 5
 
 		for (k = 1; out.length < wlen; k++) {
-			u = ui = hmac(hasher, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF), 1)
+			u = ui = hmac(hasher, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
 
 			for (i = count; --i;) {
-				ui = hmac(hasher, secret, ui, 1)
+				ui = hmac(hasher, secret, ui)
 				for (j = ui.length; j--;) u[j] ^= ui[j]
 			}
 
