@@ -58,7 +58,7 @@
 		, ipad = []
 		, opad = []
 
-		key = (key.length > 64) ? hasher(key, 1) : s2i(key)
+		key = (key.length > 64) ? hasher(key) : s2i(key)
 
 		while (i < 16) {
 			ipad[i] = key[i]^0x36363636
@@ -69,11 +69,11 @@
 			txt = s2i(txt)
 			len = txt.len
 		} else len = txt.length * 4
-		return hasher(opad.concat(hasher(ipad.concat(txt), 1, 64 + len)), 1)
+		return hasher(opad.concat(hasher(ipad.concat(txt), 64 + len)))
 	}
 
 	crypto.hmac = function(digest, key, message) {
-		return i2s(hmac(crypto[digest], key, message))
+		return i2s(hmac(digest == "sha256" ? sha256 : sha1, key, message))
 	}
 
 	//*/
@@ -102,7 +102,7 @@
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
 
 	function pbkdf2(secret, salt, count, length, digest) {
-		var hasher = crypto[digest || "sha1"]
+		var hasher = digest == "sha256" ? sha256 : sha1
 		count = count || 1000
 
 		var u, ui, i, j, k
@@ -143,7 +143,7 @@
 		return (x<<n) | (x>>>(32-n))
 	}
 
-	function sha1(data, raw, _len) {
+	function sha1(data, _len) {
 		var a, b, c, d, e, t, j
 		, i = 0
 		, w = []
@@ -166,11 +166,12 @@
 				a = t|0
 			}
 		}
-		t = [A, B, C, D, E]
-		return raw ? t : i2s(t)
+		return [A, B, C, D, E]
 	}
 
-	crypto.sha1 = sha1
+	crypto.sha1 = function(data) {
+		return i2s(sha1(data))
+	}
 	//*/
 
 
@@ -192,7 +193,7 @@
 		}
 	}
 
-	function sha256(data, raw, _len) {
+	function sha256(data, _len) {
 		initial_map[0] || buildMaps()
 
 		var a, b, c, d, e, f, g, h, t1, t2, j
@@ -251,11 +252,12 @@
 			H += h
 			i += 16
 		}
-		t = [A, B, C, D, E, F, G, H]
-		return raw ? t : i2s(t)
+		return [A, B, C, D, E, F, G, H]
 	}
 
-	crypto.sha256 = sha256
+	crypto.sha256 = function(data) {
+		return i2s(sha256(data))
+	}
 	//*/
 
 }(this)
