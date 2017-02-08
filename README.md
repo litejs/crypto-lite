@@ -6,8 +6,8 @@
 [4]: http://nodejs.org/api/crypto.html
 
 
-    @version    0.1.0
-    @date       2015-03-22
+    @version    0.2.0
+    @date       2017-02-08
     @stability  2 - Unstable
 
 
@@ -58,7 +58,7 @@ External links
 
 ### Licence
 
-Copyright (c) 2014 Lauri Rooden &lt;lauri@rooden.ee&gt;  
+Copyright (c) 2014-2017 Lauri Rooden &lt;lauri@rooden.ee&gt;  
 [The MIT License](http://lauri.rooden.ee/mit-license.txt)
 
 
