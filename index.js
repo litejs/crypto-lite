@@ -34,13 +34,13 @@
 	 * @return {number[]} array of integers
 	 */
 
-	function s2i(s) { // string to integer array
-		s = unescape(encodeURIComponent(s))
-		var len = s.length
+	function s2i(_s) { // string to integer array
+		var s = unescape(encodeURIComponent(_s))
+		, len = s.length
 		, i = 0
 		, bin = []
 
-		while (i < len) {
+		for (; i < len;) {
 			bin[i>>2] = s.charCodeAt(i++)<<24 |
 				s.charCodeAt(i++)<<16 |
 				s.charCodeAt(i++)<<8 |
@@ -52,23 +52,19 @@
 
 
 	//** HMAC
-	function hmac(hasher, key, txt) {
-		var len
-		, i = 0
+	function hmac(hasher, _key, _txt) {
+		var i = 0
 		, ipad = []
 		, opad = []
+		, key = (_key.length > 64 ? hasher : s2i)(_key)
+		, txt = typeof _txt == "string" ? s2i(_txt) : _txt
+		, len = txt.len || txt.length * 4
 
-		key = (key.length > 64) ? hasher(key) : s2i(key)
-
-		while (i < 16) {
+		for (; i < 16;) {
 			ipad[i] = key[i]^0x36363636
 			opad[i] = key[i++]^0x5c5c5c5c
 		}
 
-		if (typeof txt == "string") {
-			txt = s2i(txt)
-			len = txt.len
-		} else len = txt.length * 4
 		return hasher(opad.concat(hasher(ipad.concat(txt), 64 + len)))
 	}
 
