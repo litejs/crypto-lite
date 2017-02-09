@@ -97,15 +97,15 @@
 
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
 
-	function pbkdf2(secret, salt, count, length, digest) {
+	function pbkdf2(secret, salt, _count, length, digest) {
 		var hasher = digest == "sha256" ? sha256 : sha1
-		count = count || 1000
-
-		var u, ui, i, j, k
+		, count = _count || 1000
+		, u, ui, i, j
+		, k = 1
 		, out = []
 		, wlen = length>>2 || 5
 
-		for (k = 1; out.length < wlen; k++) {
+		for (; out.length < wlen; k++) {
 			u = ui = hmac(hasher, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
 
 			for (i = count; --i;) {
