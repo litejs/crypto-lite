@@ -56,5 +56,9 @@ describe("crypto-lite").
 		equal(crypto.pbkdf2("password", "salt", 2, 10, "sha256") , "ae4d0c95af6b46d32d0a").
 		equal(crypto.pbkdf2("password", "salt", 2, 11, "sha256") , "ae4d0c95af6b46d32d0adf").
 		equal(crypto.pbkdf2("password", "salt", 2, 12, "sha256") , "ae4d0c95af6b46d32d0adff9").
-done()
+done(function() {
+	if (typeof document != "undefined") {
+		document.write(require("testman").describe.result.split("\n").join("<br>"))
+	}
+})
 
