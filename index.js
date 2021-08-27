@@ -154,7 +154,12 @@
 		for (; i < len; i+=16, A+=a, B+=b, C+=c, D+=d, E+=e) {
 			for (j=0, a=A, b=B, c=C, d=D, e=E; j < 80;) {
 				w[j] = j < 16 ? bin[i+j] : l(w[j-3]^w[j-8]^w[j-14]^w[j-16], 1)
-				t = (j<20 ? ((b&c)|(~b&d))+0x5A827999 : j<40 ? (b^c^d)+0x6ED9EBA1 : j<60 ? ((b&c)|(b&d)|(c&d))+0x8F1BBCDC : (b^c^d)+0xCA62C1D6)+l(a,5)+e+(w[j++]|0)
+				t = (
+					j < 20 ? ((b&c)|(~b&d)) + 0x5A827999 :
+					j < 40 ? (b^c^d) + 0x6ED9EBA1 :
+					j < 60 ? ((b&c)|(b&d)|(c&d)) + 0x8F1BBCDC :
+					(b^c^d) + 0xCA62C1D6
+				) + l(a, 5) + e + (w[j++]|0)
 				e = d
 				d = c
 				c = l(b,30)
@@ -177,19 +182,20 @@
 
 	function buildMaps() {
 		// getFractionalBits
-		function a(e) {
-			return (e - (e>>>0)) * 0x100000000 | 0
+		function powFraction(c, e) {
+			c = Math.pow(c, e)
+			return (c - (c>>>0)) * 0x100000000 | 0
 		}
 
 		outer: for (var b = 0, c = 2, d; b < 64; c++) {
 			// isPrime
 			for (d = 2; d * d <= c; d++) if (c % d === 0) continue outer;
-			if (b < 8) initial_map[b] = a(Math.pow(c, .5));
-			constants_map[b++] = a(Math.pow(c, 1 / 3));
+			if (b < 8) initial_map[b] = powFraction(c, .5)
+			constants_map[b++] = powFraction(c, 1 / 3)
 		}
 	}
 
-	function sha256(data, _len) {
+	function sha256(data, _len, is224) {
 		initial_map[0] || buildMaps()
 
 		var a, b, c, d, e, f, g, h, t1, t2, j
@@ -207,18 +213,20 @@
 		, len = bin.length
 		, K = constants_map
 
+		if (is224) {
+			A = 0xc1059ed8
+			B = 0x367cd507
+			C = 0x3070dd17
+			D = 0xf70e5939
+			E = 0xffc00b31
+			F = 0x68581511
+			G = 0x64f98fa7
+			H = 0xbefa4fa4
+		}
 
-		for (; i < len; ) {
-			a = A
-			b = B
-			c = C
-			d = D
-			e = E
-			f = F
-			g = G
-			h = H
 
-			for (j = 0; j < 64; ) {
+		for (; i < len; i+=16, A+=a, B+=b, C+=c, D+=d, E+=e, F+=f, G+=g, H+=h) {
+			for (j=0, a=A, b=B, c=C, d=D, e=E, f=F, g=G, h=H; j < 64; ) {
 				if (j < 16) w[j] = bin[i+j]
 				else {
 					t1 = w[j-2]
@@ -238,19 +246,14 @@
 				b = a
 				a = (t1 + t2)|0
 			}
-			A += a
-			B += b
-			C += c
-			D += d
-			E += e
-			F += f
-			G += g
-			H += h
-			i += 16
 		}
 		return [A, B, C, D, E, F, G, H]
 	}
 
+
+	crypto.sha224 = function(data) {
+		return i2s(sha256(data, 0, 1)).slice(0, -8)
+	}
 	crypto.sha256 = function(data) {
 		return i2s(sha256(data))
 	}
