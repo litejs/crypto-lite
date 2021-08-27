@@ -80,5 +80,7 @@ describe("crypto-lite", function() {
 		.equal(crypto.pbkdf2("password", "salt", 2, 12, "sha256") , "ae4d0c95af6b46d32d0adff9")
 		.end()
 	})
+
+	require("./hotp.js")
 })
 

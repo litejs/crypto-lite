@@ -121,6 +121,19 @@
 
 	//*/
 
+	//** HOTP
+	crypto.hotp = hotp
+	function hotp(key, opts) {
+		opts = Object.assign({
+			counter: typeof opts === "number" ? opts : 0,
+			digits: 6,
+			algo: "sha1"
+		}, opts)
+		var arr = hmac(opts.algo == "sha256" ? sha256 : sha1, key, [0, opts.counter])
+		, offset = arr[arr.length-1]&15
+		return ("0000000" + (0x7FFFFFFF & parseInt(i2s(arr).substr(2*offset, 8), 16))).slice(-opts.digits)
+	}
+	//*/
 
 	function shaInit(bin, len) {
 		if (typeof bin == "string") {
