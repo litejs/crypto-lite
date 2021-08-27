@@ -82,5 +82,6 @@ describe("crypto-lite", function() {
 	})
 
 	require("./hotp.js")
+	require("./totp.js")
 })
 

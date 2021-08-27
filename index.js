@@ -135,6 +135,19 @@
 	}
 	//*/
 
+	//** TOTP
+	crypto.totp = totp
+	function totp(key, opts) {
+		opts = Object.assign({
+			time: typeof opts === "number" ? opts : Math.floor(Date.now()/1000),
+			t0: 0,
+			step: 30
+		}, opts)
+		opts.counter = Math.floor((opts.time - opts.t0)/opts.step)
+		return hotp(key, opts)
+	}
+	//*/
+
 	function shaInit(bin, len) {
 		if (typeof bin == "string") {
 			bin = s2i(bin)
