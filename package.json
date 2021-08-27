@@ -18,43 +18,8 @@
     "dist",
     "index.js"
   ],
-  "scripts": {
-    "build": "node node_modules/buildman/index.js --all",
-    "test": "node tests/index.js"
-  },
   "repository": "git://github.com/litejs/crypto-lite.git",
   "bugs": {
     "url": "https://github.com/litejs/crypto-lite/issues"
-  },
-  "devDependencies": {
-    "buildman": "*",
-    "testman": "*"
-  },
-  "buildman": {
-    "dist/crypto-lite-min.js": "index.js",
-    "dist/sha1.js": {
-      "devel": true,
-      "banner": "/*! litejs.com/MIT-LICENSE.txt */",
-      "input": "index.js",
-      "toggle": "sha256|HMAC|PBKDF2"
-    },
-    "dist/sha1-hmac-pbkdf2.js": {
-      "devel": true,
-      "banner": "/*! litejs.com/MIT-LICENSE.txt */",
-      "input": "index.js",
-      "toggle": "sha256"
-    },
-    "dist/sha256.js": {
-      "devel": true,
-      "banner": "/*! litejs.com/MIT-LICENSE.txt */",
-      "input": "index.js",
-      "toggle": "sha1|HMAC|PBKDF2"
-    },
-    "dist/sha256-hmac-pbkdf2.js": {
-      "devel": true,
-      "banner": "/*! litejs.com/MIT-LICENSE.txt */",
-      "input": "index.js",
-      "toggle": "sha1"
-    }
   }
 }
