@@ -1,22 +1,21 @@
 {
   "name": "crypto-lite",
   "version": "0.2.0",
-  "stability": 2,
   "author": "Lauri Rooden <lauri@rooden.ee>",
   "license": "MIT",
-  "description": "Standard and secure cryptographic algorithms for browser",
+  "description": "Standard cryptographic algorithms",
   "keywords": [
     "crypto",
     "sha1",
+    "sha224",
     "sha256",
     "hmac",
-    "pbkdf2"
+    "pbkdf2",
+    "hotp",
+    "totp"
   ],
   "main": "index.js",
-  "readmeFilename": "README.md",
   "files": [
-    "dist",
-    "index.js"
   ],
   "repository": "git://github.com/litejs/crypto-lite.git",
   "bugs": {
