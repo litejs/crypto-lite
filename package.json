@@ -1,6 +1,6 @@
 {
   "name": "crypto-lite",
-  "version": "0.2.0",
+  "version": "21.8.0",
   "author": "Lauri Rooden <lauri@rooden.ee>",
   "license": "MIT",
   "description": "Standard cryptographic algorithms",
@@ -15,10 +15,12 @@
     "totp"
   ],
   "main": "index.js",
-  "files": [
-  ],
+  "files": [],
   "repository": "git://github.com/litejs/crypto-lite.git",
   "bugs": {
     "url": "https://github.com/litejs/crypto-lite/issues"
+  },
+  "litejs": {
+    "build": false
   }
 }
