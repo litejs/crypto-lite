@@ -33,6 +33,7 @@
 
 	//** HMAC
 	function hmac(hasher, _key, _txt) {
+		hasher = hasher == "sha256" ? sha256 : sha1
 		var i = 0
 		, ipad = []
 		, opad = []
@@ -49,7 +50,7 @@
 	}
 
 	crypto.hmac = function(digest, key, message) {
-		return intToHex(hmac(digest == "sha256" ? sha256 : sha1, key, message))
+		return intToHex(hmac(digest, key, message))
 	}
 	//*/
 
@@ -76,19 +77,17 @@
 
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
 
-	function pbkdf2(secret, salt, _count, length, digest) {
-		var hasher = digest == "sha256" ? sha256 : sha1
-		, count = _count || 1000
-		, u, ui, i, j
+	function pbkdf2(secret, salt, count, length, digest) {
+		var u, ui, i, j
 		, k = 1
 		, out = []
 		, wlen = length>>2 || 5
 
 		for (; out.length < wlen; k++) {
-			u = ui = hmac(hasher, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
+			u = ui = hmac(digest, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
 
-			for (i = count; --i;) {
-				ui = hmac(hasher, secret, ui)
+			for (i = count || 1000; --i;) {
+				ui = hmac(digest, secret, ui)
 				for (j = ui.length; j--;) u[j] ^= ui[j]
 			}
 
@@ -108,7 +107,7 @@
 			digits: 6,
 			algo: "sha1"
 		}, opts)
-		var arr = hmac(opts.algo == "sha256" ? sha256 : sha1, key, [0, opts.counter])
+		var arr = hmac(opts.algo, key, [0, opts.counter])
 		, offset = arr[arr.length-1]&15
 		return ("0000000" + (0x7FFFFFFF & parseInt(intToHex(arr).substr(2*offset, 8), 16))).slice(-opts.digits)
 	}
