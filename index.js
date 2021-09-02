@@ -1,63 +1,43 @@
 
 
-
-/*
- * @version    0.2.0
- * @date       2017-02-08
- * @stability  2 - Unstable
- * @author     Lauri Rooden <lauri@rooden.ee>
- * @license    MIT License
- */
-
-
+/*! https://litejs.com/MIT-LICENSE.txt */
 
 
 !function(exports) {
+	"use strict";
 	var crypto = exports.crypto || (exports.crypto = {})
 
-	/**
-	 * Convert array of integers to a hex string.
-	 *
-	 * @param {number[]} array of integers
-	 * @return {string} HEX string
-	 */
-
-	function i2s(a) { // integer array to hex string
-		for (var i = a.length; i--;) a[i] = ("0000000"+(a[i]>>>0).toString(16)).slice(-8)
-		return a.join("")
+	function intToHex(arr) {
+		for (var i = arr.length; i--;) arr[i] = ("0000000" + (arr[i] >>> 0).toString(16)).slice(-8)
+		return arr.join("")
 	}
 
-	/**
-	 * Convert string to an array of integers.
-	 *
-	 * @param {string}
-	 * @return {number[]} array of integers
-	 */
-
-	function s2i(_s) { // string to integer array
-		var s = unescape(encodeURIComponent(_s))
-		, len = s.length
-		, i = 0
-		, bin = []
+	function strToInt(str) {
+		str = unescape(encodeURIComponent(str))
+		var i = 0
+		, arr = []
+		, len = arr.len = str.length
 
 		for (; i < len;) {
-			bin[i>>2] = s.charCodeAt(i++)<<24 |
-				s.charCodeAt(i++)<<16 |
-				s.charCodeAt(i++)<<8 |
-				s.charCodeAt(i++)
+			arr[i>>2] = str.charCodeAt(i++)<<24 |
+				str.charCodeAt(i++)<<16 |
+				str.charCodeAt(i++)<<8 |
+				str.charCodeAt(i++)
 		}
-		bin.len = len
-		return bin
+		return arr
 	}
 
+	function rotL(val, count) {
+		return (val << count) | (val >>> (32 - count))
+	}
 
 	//** HMAC
 	function hmac(hasher, _key, _txt) {
 		var i = 0
 		, ipad = []
 		, opad = []
-		, key = (_key.length > 64 ? hasher : s2i)(_key)
-		, txt = typeof _txt == "string" ? s2i(_txt) : _txt
+		, key = (_key.length > 64 ? hasher : strToInt)(_key)
+		, txt = typeof _txt == "string" ? strToInt(_txt) : _txt
 		, len = txt.len || txt.length * 4
 
 		for (; i < 16;) {
@@ -69,9 +49,8 @@
 	}
 
 	crypto.hmac = function(digest, key, message) {
-		return i2s(hmac(digest == "sha256" ? sha256 : sha1, key, message))
+		return intToHex(hmac(digest == "sha256" ? sha256 : sha1, key, message))
 	}
-
 	//*/
 
 	/**
@@ -116,7 +95,7 @@
 			//out = out.concat(u)
 			out.push.apply(out, u)
 		}
-		return i2s(out).slice(0, length*2 || 40)
+		return intToHex(out).slice(0, length*2 || 40)
 	}
 
 	//*/
@@ -131,7 +110,7 @@
 		}, opts)
 		var arr = hmac(opts.algo == "sha256" ? sha256 : sha1, key, [0, opts.counter])
 		, offset = arr[arr.length-1]&15
-		return ("0000000" + (0x7FFFFFFF & parseInt(i2s(arr).substr(2*offset, 8), 16))).slice(-opts.digits)
+		return ("0000000" + (0x7FFFFFFF & parseInt(intToHex(arr).substr(2*offset, 8), 16))).slice(-opts.digits)
 	}
 	//*/
 
@@ -150,7 +129,7 @@
 
 	function shaInit(bin, len) {
 		if (typeof bin == "string") {
-			bin = s2i(bin)
+			bin = strToInt(bin)
 			len = bin.len
 		} else len = len || bin.length<<2
 
@@ -161,10 +140,6 @@
 	}
 
 	//** sha1
-	function l(x, n) { // rotate left
-		return (x<<n) | (x>>>(32-n))
-	}
-
 	function sha1(data, _len) {
 		var a, b, c, d, e, t, j
 		, i = 0
@@ -179,16 +154,16 @@
 
 		for (; i < len; i+=16, A+=a, B+=b, C+=c, D+=d, E+=e) {
 			for (j=0, a=A, b=B, c=C, d=D, e=E; j < 80;) {
-				w[j] = j < 16 ? bin[i+j] : l(w[j-3]^w[j-8]^w[j-14]^w[j-16], 1)
+				w[j] = j < 16 ? bin[i+j] : rotL(w[j-3]^w[j-8]^w[j-14]^w[j-16], 1)
 				t = (
 					j < 20 ? ((b&c)|(~b&d)) + 0x5A827999 :
 					j < 40 ? (b^c^d) + 0x6ED9EBA1 :
 					j < 60 ? ((b&c)|(b&d)|(c&d)) + 0x8F1BBCDC :
 					(b^c^d) + 0xCA62C1D6
-				) + l(a, 5) + e + (w[j++]|0)
+				) + rotL(a, 5) + e + (w[j++]|0)
 				e = d
 				d = c
-				c = l(b,30)
+				c = rotL(b,30)
 				b = a
 				a = t|0
 			}
@@ -197,7 +172,7 @@
 	}
 
 	crypto.sha1 = function(data) {
-		return i2s(sha1(data))
+		return intToHex(sha1(data))
 	}
 	//*/
 
@@ -216,13 +191,13 @@
 		outer: for (var b = 0, c = 2, d; b < 64; c++) {
 			// isPrime
 			for (d = 2; d * d <= c; d++) if (c % d === 0) continue outer;
-			if (b < 8) initial_map[b] = powFraction(c, .5)
+			if (b < 8) initial_map[b] = powFraction(c, 0.5)
 			constants_map[b++] = powFraction(c, 1 / 3)
 		}
 	}
 
 	function sha256(data, _len, is224) {
-		initial_map[0] || buildMaps()
+		if (!initial_map[0]) buildMaps()
 
 		var a, b, c, d, e, f, g, h, t1, t2, j
 		, i = 0
@@ -250,18 +225,17 @@
 			H = 0xbefa4fa4
 		}
 
-
 		for (; i < len; i+=16, A+=a, B+=b, C+=c, D+=d, E+=e, F+=f, G+=g, H+=h) {
 			for (j=0, a=A, b=B, c=C, d=D, e=E, f=F, g=G, h=H; j < 64; ) {
 				if (j < 16) w[j] = bin[i+j]
 				else {
 					t1 = w[j-2]
 					t2 = w[j-15]
-					w[j] = (t1>>>17^t1<<15^t1>>>19^t1<<13^t1>>>10) + (w[j-7]|0) + (t2>>>7^t2<<25^t2>>>18^t2<<14^t2>>>3) + (w[j-16]|0)
+					w[j] = (rotL(t1, 15)^rotL(t1, 13)^t1>>>10) + (w[j-7]|0) + (rotL(t2, 25)^rotL(t2, 14)^t2>>>3) + (w[j-16]|0)
 				}
 
-				t1 = (w[j]|0) + h + (e>>>6^e<<26^e>>>11^e<<21^e>>>25^e<<7) + ((e&f)^((~e)&g)) + K[j++]
-				t2 = (a>>>2^a<<30^a>>>13^a<<19^a>>>22^a<<10) + ((a&b)^(a&c)^(b&c))
+				t1 = (w[j]|0) + h + (rotL(e, 26)^rotL(e, 21)^rotL(e, 7)) + ((e&f)^((~e)&g)) + K[j++]
+				t2 = (rotL(a, 30)^rotL(a, 19)^rotL(a, 10)) + ((a&b)^(a&c)^(b&c))
 
 				h = g
 				g = f
@@ -276,15 +250,14 @@
 		return [A, B, C, D, E, F, G, H]
 	}
 
-
 	crypto.sha224 = function(data) {
-		return i2s(sha256(data, 0, 1)).slice(0, -8)
+		return intToHex(sha256(data, 0, 1)).slice(0, -8)
 	}
 	crypto.sha256 = function(data) {
-		return i2s(sha256(data))
+		return intToHex(sha256(data))
 	}
 	//*/
 
-}(this)
+}(this) // jshint ignore:line
 
 
