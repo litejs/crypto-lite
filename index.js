@@ -107,7 +107,11 @@
 			digits: 6,
 			algo: "sha1"
 		}, opts)
-		var arr = hmac(opts.algo, key, [0, opts.counter])
+		var arr = hmac(
+			opts.algo,
+			opts.enc == "base32" ? base32Decode(key) : key,
+			[0, opts.counter]
+		)
 		, offset = arr[arr.length-1]&15
 		return ("0000000" + (0x7FFFFFFF & parseInt(intToHex(arr).substr(2*offset, 8), 16))).slice(-opts.digits)
 	}
@@ -124,6 +128,19 @@
 		opts.counter = Math.floor((opts.time - opts.t0)/opts.step)
 		return hotp(key, opts)
 	}
+	// RFC 4648 Base32
+	function base32Decode(str) {
+		return str.replace(/./g, function(c) {
+			c = c.charCodeAt()
+			return (c - (c < 48 ? c : c < 58 ? -8 : c < 65 ? c : c < 97 ? 33 : 65)).toString(2).slice(-5)
+		})
+		.replace(/.{1,8}/g, function(c) {
+			return String.fromCharCode(parseInt(c, 2))
+		})
+	}
+	crypto.base32Decode
+
+
 	//*/
 
 	function shaInit(bin, len) {

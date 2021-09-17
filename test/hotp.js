@@ -6,6 +6,11 @@ describe("HOTP - HMAC-Based One-Time Password", function() {
 		var key = "12345678901234567890"
 		, tests = [
 			{ counter: 0, hotp: "755224" },
+			{ counter: 0, hotp: "755224", key: "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ", enc: "base32" },
+			{ counter: 0, hotp: "755224", key: "gezdgnbvgy3tqojqgezdgnbvgy3tqojq", enc: "base32" },
+			{ counter: 0, hotp: "328482", key: "aaaaaaaa", enc: "base32" },
+			{ counter: 0, hotp: "328482", key: "aaa aaa=aa==", enc: "base32" },
+			{ counter: 0, hotp: "328482", key: "\0\0\0\0\0" },
 			{ counter: 1, hotp: "287082" },
 			{ counter: 2, hotp: "359152" },
 			{ counter: 3, hotp: "969429" },
@@ -29,7 +34,7 @@ describe("HOTP - HMAC-Based One-Time Password", function() {
 		]
 
 		tests.forEach(function(test) {
-			assert.equal(hotp(key, test), test.hotp)
+			assert.equal(hotp(test.key || key, test), test.hotp)
 		})
 		assert.equal(hotp(key, 1), "287082")
 		assert.end()
