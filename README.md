@@ -19,12 +19,14 @@ Pure JavaScript implementations for:
  - [RFC 6238][] - TOTP - Time-Based One-Time Password
  - [RFC 4226][] - HOTP - HMAC-Based One-Time Password
 
+
+[RFC 2104]: https://datatracker.ietf.org/doc/html/rfc2104
 [RFC 3174]: https://datatracker.ietf.org/doc/html/rfc3174
 [RFC 3874]: https://datatracker.ietf.org/doc/html/rfc3874
-[RFC 2104]: https://datatracker.ietf.org/doc/html/rfc2104
-[RFC 8018]: https://datatracker.ietf.org/doc/html/rfc8018
-[RFC 6238]: https://datatracker.ietf.org/doc/html/rfc6238
 [RFC 4226]: https://datatracker.ietf.org/doc/html/rfc4226
+[RFC 4648]: https://datatracker.ietf.org/doc/html/rfc4648
+[RFC 6238]: https://datatracker.ietf.org/doc/html/rfc6238
+[RFC 8018]: https://datatracker.ietf.org/doc/html/rfc8018
 [FIPS 180-2]: https://csrc.nist.gov/csrc/media/publications/fips/180/2/archive/2002-08-01/documents/fips180-2withchangenotice.pdf
 
 ## How to use in browser
@@ -47,6 +49,8 @@ crypto.hotp("secret", { counter: 1, digits 6, algo: "sha1" })
 crypto.totp("secret", { time: Date.now(), t0: 0, step: 30, digits 6, algo: "sha1" }) // Defaults
 </script>
 ```
+
+hotp/totp options accepts `{enc: "base32"}` for [RFC 4648 Base32][RFC 4648] encoding.
 
 
 ## How to use in node.js
