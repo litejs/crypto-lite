@@ -1,15 +1,16 @@
-[3]: https://badgen.net/coveralls/c/github/litejs/crypto-lite
-[4]: https://coveralls.io/r/litejs/crypto-lite
-[5]: https://badgen.net/packagephobia/install/crypto-lite
-[6]: https://packagephobia.now.sh/result?p=crypto-lite
-[7]: https://badgen.net/badge/icon/Buy%20Me%20A%20Tea/orange?icon=kofi&label
-[8]: https://www.buymeacoffee.com/lauriro
+
+[1]: https://badgen.net/coveralls/c/github/litejs/crypto-lite
+[2]: https://coveralls.io/r/litejs/crypto-lite
+[3]: https://badgen.net/packagephobia/install/crypto-lite
+[4]: https://packagephobia.now.sh/result?p=crypto-lite
+[5]: https://badgen.net/badge/icon/Buy%20Me%20A%20Tea/orange?icon=kofi&label
+[6]: https://www.buymeacoffee.com/lauriro
 
 
-Cryptographic algorithms &ndash; [![Coverage][3]][4] [![Size][5]][6] [![Buy Me A Tea][7]][8]
-========================
+Crypto lite &ndash; [![Coverage][1]][2] [![Size][3]][4] [![Buy Me A Tea][5]][6]
+===========
 
-Pure JavaScript implementations for:
+Pure JavaScript cryptographic algorithms:
 
  - [RFC 3174][] - SHA-1 - Secure Hash Algorithm 1
  - [FIPS 180-2][] - SHA-256 - Secure Hash Algorithm 2
@@ -56,7 +57,7 @@ hotp/totp options accepts `{enc: "base32"}` for [RFC 4648 Base32][RFC 4648] enco
 ## How to use in node.js
 
 Although it should work in node.js,
-you should [use native](http://nodejs.org/api/crypto.html) api there.
+you should [use native](https://nodejs.org/api/crypto.html) api there.
 
 npm install crypto-lite
 
@@ -69,13 +70,15 @@ var crypto = require("crypto-lite").crypto
 External links
 --------------
 
--   [Source-code on Github](https://github.com/litejs/crypto-lite)
--   [Package on npm](https://npmjs.org/package/crypto-lite)
+[GitHub repo](https://github.com/litejs/crypto-lite) |
+[npm package](https://npmjs.org/package/crypto-lite) |
+[Coveralls coverage][2] |
+[Buy Me A Tea][6]
 
 
 ### Licence
 
-Copyright (c) 2014-2021 Lauri Rooden &lt;lauri@rooden.ee&gt;  
-[The MIT License](http://lauri.rooden.ee/mit-license.txt)
+Copyright (c) 2014-2022 Lauri Rooden &lt;lauri@rooden.ee&gt;  
+[The MIT License](https://lauri.rooden.ee/mit-license.txt)
 
 
