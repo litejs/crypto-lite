@@ -1,6 +1,7 @@
 
 
 /*! https://litejs.com/MIT-LICENSE.txt */
+// node v15.7.0	introduced base64url encoding.
 
 
 !function(exports) {
@@ -138,9 +139,6 @@
 			return String.fromCharCode(parseInt(c, 2))
 		})
 	}
-	crypto.base32Decode
-
-
 	//*/
 
 	function shaInit(bin, len) {

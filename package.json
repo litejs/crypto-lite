@@ -21,20 +21,29 @@
     "url": "https://github.com/litejs/crypto-lite/issues"
   },
   "scripts": {
-    "test": "c8 -r lcov -r text-summary --check-coverage --100 lj test --brief test/index.js"
+    "test": "c8 -r lcov -r text-summary --check-coverage --100 lj test --brief test/index.js && jshint *.js"
   },
   "devDependencies": {
-    "@litejs/cli": "21.11.0",
-    "c8": "7.12.0"
+    "@litejs/cli": "22.12.0",
+    "c8": "7.12.0",
+    "jshint": "2.13.6"
   },
   "litejs": {
     "build": false,
     "lint": "jshint *.js"
   },
   "jshintConfig": {
+    "esversion": 5,
     "asi": true,
+    "browser": true,
+    "evil": true,
     "laxcomma": true,
     "maxdepth": 6,
+    "nonbsp": true,
+    "nonstandard": true,
+    "undef": true,
+    "unused": true,
+    "shadow": "outer",
     "quotmark": "double"
   }
 }
