@@ -21,7 +21,7 @@
     "url": "https://github.com/litejs/crypto-lite/issues"
   },
   "scripts": {
-    "lint": "jshint --config=.github/jshint.json *.js",
+    "lint": "npx jshint -c .github/jshint.json *.js",
     "test": "lj test --brief test/index.js"
   },
   "devDependencies": {
