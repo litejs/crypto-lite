@@ -6,7 +6,6 @@
 
 !function(exports) {
 	"use strict";
-	var crypto = exports.crypto || (exports.crypto = {})
 
 	function intToHex(arr) {
 		for (var i = arr.length; i--;) arr[i] = ("0000000" + (arr[i] >>> 0).toString(16)).slice(-8)
@@ -50,7 +49,7 @@
 		return hasher(opad.concat(hasher(ipad.concat(txt), 64 + len)))
 	}
 
-	crypto.hmac = function(digest, key, message) {
+	exports.hmac = function(digest, key, message) {
 		return intToHex(hmac(digest, key, message))
 	}
 	//*/
@@ -74,7 +73,7 @@
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
 	// $PBKDF2$HMACSHA1:1000:akrvug==$Zi+c82tnjpcrRmUAHRd8h4ZRR5M=
 
-	crypto.pbkdf2 = pbkdf2
+	exports.pbkdf2 = pbkdf2
 
 	// crypto.pbkdf2('secret', 'salt', 4096, 512, 'sha256', function(err, key) {
 
@@ -101,7 +100,7 @@
 	//*/
 
 	//** HOTP
-	crypto.hotp = hotp
+	exports.hotp = hotp
 	function hotp(key, opts) {
 		opts = Object.assign({
 			counter: typeof opts === "number" ? opts : 0,
@@ -119,7 +118,7 @@
 	//*/
 
 	//** TOTP
-	crypto.totp = totp
+	exports.totp = totp
 	function totp(key, opts) {
 		opts = Object.assign({
 			time: typeof opts === "number" ? opts : Math.floor(Date.now()/1000),
@@ -185,7 +184,7 @@
 		return [A, B, C, D, E]
 	}
 
-	crypto.sha1 = function(data) {
+	exports.sha1 = function(data) {
 		return intToHex(sha1(data))
 	}
 	//*/
@@ -264,10 +263,10 @@
 		return [A, B, C, D, E, F, G, H]
 	}
 
-	crypto.sha224 = function(data) {
+	exports.sha224 = function(data) {
 		return intToHex(sha256(data, 0, 1)).slice(0, -8)
 	}
-	crypto.sha256 = function(data) {
+	exports.sha256 = function(data) {
 		return intToHex(sha256(data))
 	}
 	//*/

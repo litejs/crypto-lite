@@ -1,6 +1,6 @@
 
 describe("HOTP - HMAC-Based One-Time Password", function() {
-	var hotp = require("../").crypto.hotp
+	var hotp = require("../").hotp
 
 	this.test("RFC 4226 Appendix D - Test Values", function(assert) {
 		var key = "12345678901234567890"

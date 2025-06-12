@@ -1,6 +1,6 @@
 
 describe("SHA", function() {
-	var crypto = require("../").crypto
+	var crypto = require("../")
 
 	this
 	.should("hash sha1", function(assert) {

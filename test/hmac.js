@@ -1,6 +1,6 @@
 
 describe("HMAC - Keyed-Hashing for Message Authentication", function() {
-	var hmac = require("../").crypto.hmac
+	var hmac = require("../").hmac
 
 	this.test("Extra tests", function(assert) {
 		assert

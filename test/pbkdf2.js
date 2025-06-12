@@ -1,6 +1,6 @@
 
 describe("PBKDF2 - Password-Based Key Derivation Function", function() {
-	var pbkdf2 = require("../").crypto.pbkdf2
+	var pbkdf2 = require("../").pbkdf2
 
 	this
 	.test("RFC 6070 PBKDF2 HMAC-SHA1 Test Vectors", function(assert) {

@@ -1,6 +1,6 @@
 
 describe("TOTP - Time-Based One-Time Password", function() {
-	var totp = require("../").crypto.totp
+	var totp = require("../").totp
 
 	this
 	.test("RFC 6238 Appendix B - Test Vectors", function(assert) {
