@@ -7,6 +7,8 @@
 !function(exports) {
 	"use strict";
 
+	var assign = Object.assign
+
 	function intToHex(arr) {
 		for (var i = arr.length; i--;) arr[i] = ("0000000" + (arr[i] >>> 0).toString(16)).slice(-8)
 		return arr.join("")
@@ -102,7 +104,7 @@
 	//** HOTP
 	exports.hotp = hotp
 	function hotp(key, opts) {
-		opts = Object.assign({
+		opts = assign({
 			counter: typeof opts === "number" ? opts : 0,
 			digits: 6,
 			algo: "sha1"
@@ -120,7 +122,7 @@
 	//** TOTP
 	exports.totp = totp
 	function totp(key, opts) {
-		opts = Object.assign({
+		opts = assign({
 			time: typeof opts === "number" ? opts : Math.floor(Date.now()/1000),
 			t0: 0,
 			step: 30
