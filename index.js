@@ -8,6 +8,7 @@
 	"use strict";
 
 	var assign = Object.assign
+	, fromCharCode = String.fromCharCode
 
 	function intToHex(arr) {
 		for (var i = arr.length; i--;) arr[i] = ("0000000" + (arr[i] >>> 0).toString(16)).slice(-8)
@@ -86,7 +87,7 @@
 		, wlen = length>>2 || 5
 
 		for (; out.length < wlen; k++) {
-			u = ui = hmac(digest, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
+			u = ui = hmac(digest, secret, salt + fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
 
 			for (i = count || 1000; --i;) {
 				ui = hmac(digest, secret, ui)
@@ -137,7 +138,7 @@
 			return (c - (c < 48 ? c : c < 58 ? -8 : c < 65 ? c : c < 97 ? 33 : 65)).toString(2).slice(-5)
 		})
 		.replace(/.{1,8}/g, function(c) {
-			return String.fromCharCode(parseInt(c, 2))
+			return fromCharCode(parseInt(c, 2))
 		})
 	}
 	//*/
@@ -266,7 +267,7 @@
 	}
 
 	exports.sha224 = function(data) {
-		return intToHex(sha256(data, 0, 1)).slice(0, -8)
+		return intToHex(sha256(data, 0, 1)).slice(0, 56)
 	}
 	exports.sha256 = function(data) {
 		return intToHex(sha256(data))
