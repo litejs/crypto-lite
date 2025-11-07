@@ -57,19 +57,17 @@
 	}
 	//*/
 
-	/**
-	 * A minimum iteration count of 1,000 is recommended.
-	 * For especially critical keys,
-	 * or for very powerful systems
-	 * or systems where user-perceived performance is not critical,
-	 * an iteration count of 10,000,000 may be appropriate.
-	 *
-	 * PBKDF2 is always used with HMAC,
-	 * which is itself a construction which is built over
-	 * an underlying hash function.
-	 * So when we say "PBKDF2 with SHA-1",
-	 * we actually mean "PBKDF2 with HMAC with SHA-1".
-	 */
+	// A minimum iteration count of 1,000 is recommended.
+	// For especially critical keys,
+	// or for very powerful systems
+	// or systems where user-perceived performance is not critical,
+	// an iteration count of 10,000,000 may be appropriate.
+	//
+	// PBKDF2 is always used with HMAC,
+	// which is itself a construction which is built over
+	// an underlying hash function.
+	// So when we say "PBKDF2 with SHA-1",
+	// we actually mean "PBKDF2 with HMAC with SHA-1".
 
 	//** PBKDF2
 	// pbkdf2(sha256, this, salt, count, length || 32)
