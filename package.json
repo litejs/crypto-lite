@@ -1,6 +1,6 @@
 {
   "name": "crypto-lite",
-  "version": "21.8.0",
+  "version": "25.11.0",
   "author": "Lauri Rooden <lauri@rooden.ee>",
   "license": "MIT",
   "description": "Standard cryptographic algorithms",
