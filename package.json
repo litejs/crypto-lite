@@ -15,7 +15,9 @@
     "totp"
   ],
   "main": "index.js",
-  "files": [],
+  "files": [
+    "index.d.ts"
+  ],
   "repository": "git://github.com/litejs/crypto-lite.git",
   "bugs": {
     "url": "https://github.com/litejs/crypto-lite/issues"
