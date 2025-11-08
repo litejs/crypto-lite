@@ -45,8 +45,8 @@ hmac("sha256", "key", "message")
 // 6e9ef29b75fffc5b7abae527d58fdadb2fe42e7219011976917343065f58ed4a
 pbkdf2("password", "salt", 1, 20, "sha1")
 // 0c60c80f961f0e71f3a9b524af6012062fe037a6
-hotp("secret", { counter: 1, digits 6, algo: "sha1" })
-totp("secret", { time: Date.now(), t0: 0, step: 30, digits 6, algo: "sha1" }) // Defaults
+hotp("secret", { counter: 1, digits: 6, algo: "sha1" })
+totp("secret", { time: Date.now()/1000, t0: 0, step: 30, digits: 6, algo: "sha1" }) // Defaults
 ```
 
 hotp/totp options accepts `{enc: "base32"}` for [RFC 4648 Base32][RFC 4648] encoding.
