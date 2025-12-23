@@ -293,7 +293,7 @@ process.umask = function() { return 0; };
 		, wlen = length>>2 || 5
 
 		for (; out.length < wlen; k++) {
-			u = ui = hmac(hasher, secret, salt+String.fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
+			u = ui = hmac(hasher, secret, salt+String.fromCharCode(k >> 24 & 0xFF, k >> 16 & 0xFF, k >>  8 & 0xFF, k  & 0xFF))
 
 			for (i = count; --i;) {
 				ui = hmac(hasher, secret, ui)

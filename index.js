@@ -85,7 +85,7 @@
 		, wlen = length>>2 || 5
 
 		for (; out.length < wlen; k++) {
-			u = ui = hmac(digest, secret, salt + fromCharCode(k >> 24 & 0xF, k >> 16 & 0xF, k >>  8 & 0xF, k  & 0xF))
+			u = ui = hmac(digest, secret, salt + fromCharCode(k >> 24 & 0xFF, k >> 16 & 0xFF, k >>  8 & 0xFF, k  & 0xFF))
 
 			for (i = count || 1000; --i;) {
 				ui = hmac(digest, secret, ui)
@@ -273,5 +273,4 @@
 	//*/
 
 }(this) // jshint ignore:line
-
 

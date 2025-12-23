@@ -1,6 +1,7 @@
 
 describe("PBKDF2 - Password-Based Key Derivation Function", function() {
 	var pbkdf2 = require("../").pbkdf2
+	var nodeCrypto = require("crypto")
 
 	this
 	.test("RFC 6070 PBKDF2 HMAC-SHA1 Test Vectors", function(assert) {
@@ -29,6 +30,11 @@ describe("PBKDF2 - Password-Based Key Derivation Function", function() {
 		})
 		assert.end()
 	})
+	.test("Derived key spans more than 15 blocks", function(assert) {
+		var expected = nodeCrypto.pbkdf2Sync("password", "salt", 1, 512, "sha256").toString("hex")
+		assert.equal(pbkdf2("password", "salt", 1, 512, "sha256"), expected)
+		assert.end()
+	})
 	.test("More tests", function(assert) {
 		assert
 		.equal(pbkdf2("password", "salt") , "6e88be8bad7eae9d9e10aa061224034fed48d03f")
@@ -50,5 +56,4 @@ describe("PBKDF2 - Password-Based Key Derivation Function", function() {
 		.end()
 	})
 })
-
 
