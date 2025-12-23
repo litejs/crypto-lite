@@ -10,8 +10,8 @@ jobs:
     - run: npm audit --audit-level=low
     - run: npx c8 -r lcovonly -r text --check-coverage --100 npm test
     - run: node --import=@litejs/cli/test.js test/load.mjs
-    - run: npx tsc -p ./test/tsconfig.json --noEmit
     - run: npx lj lint
+    - run: npx tsc -p test/tsconfig.json --noEmit
     - uses: coverallsapp/github-action@v2
       name: Upload to coveralls.io
       with:
@@ -22,16 +22,15 @@ jobs:
     - uses: actions/checkout@v5
     - uses: oven-sh/setup-bun@v2
     - run: bun i
-    - run: bun x lj t
+    - run: bun x npm t
   Test:
     strategy:
       matrix:
         include:
         - { node: 8,  os: ubuntu-24.04,   arch: x86 }
         - { node: 10, os: windows-2022,   arch: x86 }
-        - { node: 12, os: macos-13,       arch: x64 }
-        - { node: 16, os: ubuntu-24.04,   arch: x64 }
-        - { node: 22, os: macos-14,       arch: arm64 }
+        - { node: 16, os: ubuntu-latest,  arch: x64 }
+        - { node: 22, os: macos-latest,   arch: arm64 }
     runs-on: ${{ matrix.os }}
     name: Node ${{matrix.node}} (${{matrix.os}} ${{matrix.arch}})
     steps:
