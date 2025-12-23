@@ -20,6 +20,7 @@ describe("HOTP - HMAC-Based One-Time Password", function() {
 			{ counter: 7, hotp: "162583" },
 			{ counter: 8, hotp: "399871" },
 			{ counter: 9, hotp: "520489" },
+			{ counter: 0x100000000, hotp: "999456" },
 			// Extra tests with 8 digit
 			{ counter: 0, hotp: "84755224", digits: 8 },
 			{ counter: 1, hotp: "94287082", digits: 8 },

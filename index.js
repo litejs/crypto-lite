@@ -111,7 +111,7 @@
 		var arr = hmac(
 			opts.algo,
 			opts.enc == "base32" ? base32Decode(key) : key,
-			[0, opts.counter]
+			[(opts.counter / 0x100000000) >>> 0, opts.counter >>> 0]
 		)
 		, offset = arr[arr.length-1]&15
 		return ("0000000" + (0x7FFFFFFF & parseInt(intToHex(arr).substr(2*offset, 8), 16))).slice(-opts.digits)
@@ -273,4 +273,3 @@
 	//*/
 
 }(this) // jshint ignore:line
-
