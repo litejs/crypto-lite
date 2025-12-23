@@ -35,12 +35,13 @@
 	}
 
 	//** HMAC
-	function hmac(hasher, _key, _txt) {
+	function hmac(hasher, key, _txt) {
 		hasher = hasher == "sha256" ? sha256 : sha1
+		key = strToInt(key)
+		if (key.len > 64) key = hasher(key, key.len)
 		var i = 0
 		, ipad = []
 		, opad = []
-		, key = (_key.length > 64 ? hasher : strToInt)(_key)
 		, txt = typeof _txt == "string" ? strToInt(_txt) : _txt
 		, len = txt.len || txt.length * 4
 

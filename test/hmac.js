@@ -20,6 +20,8 @@ describe("HMAC - Keyed-Hashing for Message Authentication", function() {
 		) , "4b8846081d35037e96b7bd836c03b3eb7a304b32b6f47a3af913429078d4fe63")
 		.equal(hmac("sha256", "aa0faac9b60e5d328675f33221327654ad791e2935a4ae12e94c1ac939afdf22abcd", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc9bcde"
 		) , "dc07e327e8f0f68947695d8117edb41f315cc70398a9ef251290af12d16afdfe")
+		.equal(hmac("sha256", Array(41).join("ö"), "message"), "c9543a54c7fb4c2b6135b9a244ad4b7531fe751a097bf6396b17e0749b93c12f")
+
 		.end()
 	})
 })
