@@ -46,7 +46,6 @@
 		, i = 0
 		, ipad = []
 		, opad = []
-		, len = txt.len || txt.length * 4
 		if (keyLen > 64) key = hasher(key, keyLen)
 
 		for (; i < 16;) {
@@ -54,7 +53,7 @@
 			opad[i] = key[i++]^0x5c5c5c5c
 		}
 
-		return hasher(opad.concat(hasher(ipad.concat(txt), 64 + len)))
+		return hasher(opad.concat(hasher(ipad.concat(txt), 64 + (txt.len || txt.length * 4))))
 	}
 
 	exports.hmac = function(digest, key, message) {
@@ -147,10 +146,8 @@
 	//*/
 
 	function shaInit(bin, len) {
-		if (typeof bin == "string") {
-			bin = strToInt(bin)
-			len = bin.len
-		} else len = len || bin.length<<2
+		bin = strToInt(bin)
+		len = len || bin.len || bin.length<<2
 
 		bin[len>>2] |= 0x80 << (24 - (31 & (len<<=3)))
 		bin[((len + 64 >> 9) << 4) + 15] = len

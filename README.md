@@ -6,6 +6,9 @@
 [5]: https://badgen.net/badge/icon/Buy%20Me%20A%20Tea/orange?icon=kofi&label
 [6]: https://www.buymeacoffee.com/lauriro
 
+> [!NOTE]
+> Most of this code was written in 2008 with IE6 in mind.
+> Today, prefer the [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API) when available.
 
 Crypto lite &ndash; [![Coverage][1]][2] [![Size][3]][4] [![Buy Me A Tea][5]][6]
 ===========
@@ -52,9 +55,8 @@ totp("secret", { time: Date.now()/1000, digits: 6, t0: 0, step: 30 }) // Default
 hotp/totp options accepts `{enc: "base32"}` for [RFC 4648 Base32][RFC 4648] encoding.
 
 
-> Copyright (c) 2014-2025 Lauri Rooden &lt;lauri@rooden.ee&gt;  
+> Copyright (c) 2008-2025 Lauri Rooden &lt;lauri@rooden.ee&gt;  
 [MIT License](https://litejs.com/MIT-LICENSE.txt) |
 [GitHub repo](https://github.com/litejs/crypto-lite) |
 [npm package](https://npmjs.org/package/crypto-lite) |
 [Buy Me A Tea][6]
-
