@@ -11,6 +11,7 @@ describe("HOTP - HMAC-Based One-Time Password", function() {
 			{ counter: 0, hotp: "328482", key: "aaaaaaaa", enc: "base32" },
 			{ counter: 0, hotp: "328482", key: "aaa aaa=aa==", enc: "base32" },
 			{ counter: 0, hotp: "328482", key: "\0\0\0\0\0" },
+			{ counter: 0, hotp: "649232", key: "QAAQEAYE76VLW", enc: "base32" },
 			{ counter: 1, hotp: "287082" },
 			{ counter: 2, hotp: "359152" },
 			{ counter: 3, hotp: "969429" },

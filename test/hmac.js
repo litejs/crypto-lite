@@ -4,6 +4,7 @@ describe("HMAC - Keyed-Hashing for Message Authentication", function() {
 
 	this.test("Extra tests", function(assert) {
 		assert
+		.equal(hmac("sha1", [0x01020304, 0x05060708, 0x90abcdef], "message") , "abb237fa2ce32a400f30b1f4e60b366ac9b5f726")
 		.equal(hmac("sha1", "w", "q") , "697e084de5f14b207f78bd51e748fdd625e5d4e3")
 		.equal(hmac("sha1", "w23e", "8d48be98c11eb482f08afbce6d1902b0f0c028f987d58a595fd7fbf365a3dcc95") , "d2308ef241f9163aa65105959600f870f8c0e60b")
 

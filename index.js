@@ -16,7 +16,10 @@
 	}
 
 	function strToInt(str) {
-		str = unescape(encodeURIComponent(str))
+		return typeof str == "string" ? rawToInt(unescape(encodeURIComponent(str))) : str
+	}
+
+	function rawToInt(str) {
 		var i = 0
 		, arr = []
 		, len = arr.len = str.length
@@ -35,15 +38,16 @@
 	}
 
 	//** HMAC
-	function hmac(hasher, key, _txt) {
+	function hmac(hasher, key, txt) {
 		hasher = hasher == "sha256" ? sha256 : sha1
 		key = strToInt(key)
-		if (key.len > 64) key = hasher(key, key.len)
-		var i = 0
+		txt = strToInt(txt)
+		var keyLen = key.len || key.length * 4
+		, i = 0
 		, ipad = []
 		, opad = []
-		, txt = typeof _txt == "string" ? strToInt(_txt) : _txt
 		, len = txt.len || txt.length * 4
+		if (keyLen > 64) key = hasher(key, keyLen)
 
 		for (; i < 16;) {
 			ipad[i] = key[i]^0x36363636
@@ -119,13 +123,13 @@
 	}
 	// RFC 4648 Base32
 	function base32Decode(str) {
-		return str.replace(/./g, function(c) {
+		return rawToInt(str.replace(/./g, function(c) {
 			c = c.charCodeAt()
 			return (c - (c < 48 ? c : c < 58 ? -8 : c < 65 ? c : c < 97 ? 33 : 65)).toString(2).slice(-5)
 		})
 		.replace(/.{1,8}/g, function(c) {
 			return fromCharCode(parseInt(c, 2))
-		})
+		}))
 	}
 	//*/
 
